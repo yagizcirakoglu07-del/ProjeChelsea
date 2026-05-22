@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chelsea FC • Blue Is The Colour</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #034694 0%, #001c58 100%);
+      color: #f0f4ff;
+      min-height: 100vh;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+ 
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 1rem 5%;
+      position: fixed; 
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #2758d9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #6cb2ff;
+      text-shadow: 0 0 15px rgba(108,178,255,0.6);
+      cursor: pointer;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #d0e0ff;
+      margin-left: 2rem;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    nav button:hover {
+      color: #ffdd00;
+      text-shadow: 0 0 10px #ffdd00aa;
+    }
+
+  
+    .page-section {
+      display: none; 
+      padding-top: 80px; 
+      min-height: 100vh;
+      animation: slideIn 0.6s ease-out; 
+    }
+
+    .active-section {
+      display: block; 
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    
+    .hero {
+      height: 90vh;
+      background: linear-gradient(rgba(3,70,148,0.5), rgba(0,28,88,0.7)),
+                  url('https://cdn-imgix.headout.com/media/images/1ea5cc39d0084a5a987e752d822db6f5-3041-ChelseaFCStadiumTour-MuseumEntryTickets----004.jpg?auto=compress%2Cformat&w=900&h=562.5&q=90&ar=16%3A10&crop=faces%2Ccenter&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 10px; }
+    .hero .year { font-size: 2rem; color: #ffdd00; margin-bottom: 2rem; }
+
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 5%; }
+    .squad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .player-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(39, 88, 217, 0.3);
+      transition: 0.3s;
+    }
+    .player-card:hover { transform: scale(1.03); border-color: #ffdd00; }
+    .player-card img { width: 100%; height: 300px; object-fit: cover; }
+    .player-info { padding: 1.5rem; text-align: center; }
+
+   
+    .history-content {
+      background: rgba(0,0,0,0.4);
+      padding: 3rem;
+      border-radius: 30px;
+      line-height: 1.8;
+      border-left: 5px solid #ffdd00;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.9);
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid #2758d9;
+    }
+
+    .btn {
+      background: #ffdd00;
+      color: #001c58;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #fff; transform: translateY(-3px); }
+	
+.history-content {
+  background: rgba(0,0,0,0.4);
+  padding: 2.5rem;
+  border-radius: 30px;
+  line-height: 1.8;
+  border-left: 5px solid #ffdd00;
+  margin-bottom: 2rem;
+  display: flex;         
+  align-items: center;
+  gap: 2rem;
+}
+
+.legend-photo {
+  width: 180px;         
+  height: 180px;        
+  border-radius: 20px;
+  object-fit: cover;     
+  border: 3px solid #ffdd00;
+  flex-shrink: 0;
+}
+
+.legend-text h2 {
+  color: #ffdd00;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .history-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="showPage('home')">CHELSEA FC</div>
+  <nav>
+    <button onclick="showPage('home')">Ana Sayfa</button>
+    <button onclick="showPage('squad')">Kadromuz</button>
+    <button onclick="showPage('history')">Tarihçe</button>
+	<button onclick="showPage('legends')">Efsanelerimiz</button>
+	<button onclick="showPage('epic-moments')">Epik Anlar</button>
+	
+  </nav>
+</header>
+
+
+<div id="home" class="page-section active-section">
+  <section class="hero">
+    <h1>THE BLUES</h1>
+    <div class="year">LONDON IS BLUE</div>
+    <button class="btn" onclick="showPage('history')">Tarihimizi Keşfet</button>
+  </section>
+</div>
+
+
+<div id="squad" class="page-section">
+  <main>
+    <h2 style="text-align:center; font-size: 3rem; margin-bottom: 2rem;">A Takım Kadrosu</h2>
+    <div class="squad-grid">
+      <div class="player-card">
+       <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Palmer_SF_Home_25_26_RGB.png"
+       alt="Cole Palmer" 
+       height="70">       <div class="player-info"><h3>Cole Palmer</h3><p>Orta Saha / 10</p></div>
+      </div>
+      
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Pedro_SF_Home_25_26_RGB.png" alt="Joa Pedro">
+        <div class="player-info"><h3>Joa Pedro</h3><p>Forvet / 20</p></div>
+		</div>
+		 <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Caicedo_SF_Home_25_26_RGB.png" alt="Moises Caicedo">
+        <div class="player-info"><h3>Moises Caicedo</h3><p>Orta Saha / 25</p></div>
+      </div>
+		<div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Neto_SF_Home_25_26_RGB.png" alt="Pedro Neto">
+        <div class="player-info"><h3>Pedro Neto</h3><p>Forvet / 20</p></div>
+      </div>
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Fernandez_SF_Home_25_26_RGB.png" alt="Enzo">
+        <div class="player-info"><h3>Enzo Fernández</h3><p>Orta Saha / 8</p></div>
+      </div>
+	  
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Chalobah_SF_Home_25_26_RGB.png" alt="Trevoh Chalobah">
+        <div class="player-info"><h3>Trevoh Chalobah</h3><p>Defans / 23</p></div>
+      </div>
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_James_SF_Home_25_26_RGB.png" alt="Reece James">
+        <div class="player-info"><h3>Reece James</h3><p>Sağ Bek/ 24</p></div>
+      </div>
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Gusto_SF_Home_25_26_RGB.png" alt="Malo Gusto">
+        <div class="player-info"><h3>Malo Gusto</h3><p>Sağ Bek/ 27</p></div>
+      </div>
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Estevao_SF_Home_25_26_RGB.png" alt="Estevao Willian">
+        <div class="player-info"><h3>Estevao Willian</h3><p>Forvet/ 41</p></div>
+      </div>
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Garnacho_SF_Home_25_26_RGB.png" alt="Alejandro Garnacho">
+        <div class="player-info"><h3>Alejandro Garnacho</h3><p>Sol Kanat/ 49</p></div>
+      </div>
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Cucurella_SF_Home_25_26_RGB.png" alt="Marc Cucurella">
+        <div class="player-info"><h3>Marc Cucurella</h3><p>Sol Bek/ 3</p></div>
+      </div>
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Acheampong_SF_Home_25_26_RGB.png" alt="Marc Cucurella">
+        <div class="player-info"><h3>Josh Acheampong </h3><p>Stoper/ 34</p></div>
+      </div>
+	  <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Delap_SF_Home_25_26_RGB.png" alt="Marc Cucurella">
+        <div class="player-info"><h3>Liam Delap</h3><p>Forvet/ 9</p></div>
+      </div>
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Sanchez_SF_Home_25_26_RGB.png" alt="Marc Cucurella">
+        <div class="player-info"><h3>Robert Sanchez</h3><p>Kaleci/ 1</p></div>
+      </div>
+	   <div class="player-card">
+        <img src="https://img.chelseafc.com/image/upload/f_auto,h_390,q_90/editorial/people/first-team/2025-26/With%20IFS/3333x3333_Headshot_Image_Sponsored_IFSai_Men_Jorgensen_SF_Home_25_26_RGB.png" alt="Marc Cucurella">
+        <div class="player-info"><h3>Filip Jorgensen</h3><p>Kaleci/ 12</p></div>
+      </div>
+	  
+	  
+	  
+     
+    </div>
+  </main>
+</div>
+
+
+<div id="history" class="page-section">
+  <main>
+    <div class="history-content">
+      <h2 style="color:#ffdd00; text-align:left;">Kulüp Tarihi</h2>
+      <p>1905 yılında Londra'daki The Rising Sun pubında kurulan Chelsea Football Club, o günden bugüne dünya futbolunun en büyük markalarından biri haline gelmiştir.</p>
+      <br>
+      <h3>Başarılarımız:</h3>
+      <ul>
+        <li>2 UEFA Şampiyonlar Ligi</li>
+        <li>6 Premier Lig Şampiyonluğu</li>
+        <li>2 UEFA Avrupa Ligi</li>
+        <li>8 FA Cup</li>
+		 <li>1 Kulüpler Dünya Kupası</li>
+      </ul>
+      <br>
+      <p>Maviler, Stamford Bridge'de yazılan bu destanı her geçen gün büyütmeye devam ediyor.</p>
+    </div>
+	<br><br>
+<div class="history-content">
+      <h2 style="color:#ffdd00; text-align:left;">Kulüp Tarihi</h2>
+      <p>1905 yılında Londra'daki The Rising Sun pubında kurulan Chelsea Football Club, o günden bugüne dünya futbolunun en büyük markalarından biri haline gelmiştir.</p>
+      <br>
+      <h3>Başarılarımız:</h3>
+      <ul>
+        <li>İlk Büyük Başarı (1955): Kulüp, kuruluşundan tam 50 yıl sonra teknik direktör Ted Drake önderliğinde ilk
+		İngiltere birinci lig (First Division) şampiyonluğuna ulaştı.</li>
+        <li>Abramovich Devrimi (2003): Rus milyarder Roman Abramovich'in kulübü satın alması, Chelsea tarihini tamamen 
+		değiştirdi. Yapılan devasa yatırımlar ve José Mourinho'nun teknik direktörlüğe getirilmesiyle kulüp, hem İngiltere 
+		hem de dünya futbolunun elitleri arasına girdi.</li>
+        <li>Avrupa'nın Zirvesi (2012 & 2021): Chelsea, 2012 yılında Didier Drogba ve Frank Lampard gibi efsane isimlerin
+		önderliğinde tarihinin ilk UEFA Şampiyonlar Ligi kupasını müzesine götürdü. Bu başarıyı 2021 yılında Thomas Tuchel
+		yönetiminde ikinci kez tekrarladı.</li>
+        <li>Yeni Dönem (2022 - Günümüz): 2022 yılında kulüp, Todd Boehly liderliğindeki Amerikalı bir konsorsiyum tarafından
+		satın alındı. Chelsea, günümüzde genç ve potansiyelli yıldızlara yaptığı büyük yatırımlarla yeni bir yapılanma
+		dönemi içerisindedir.</li>
+      </ul>
+      <br>
+      <p>Maviler, Stamford Bridge'de yazılan bu destanı her geçen gün büyütmeye devam ediyor.</p>
+    </div>
+  </main>
+</div>
+
+<div id="legends" class="page-section">
+  <main>
+    <h2 style="text-align:center; font-size: 3rem; margin-bottom: 2rem;">Kulüp Efsaneleri</h2>
+
+    <div class="history-content">
+      <img src="data:image/jpeg;base64,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" class="legend-photo" alt="Frank Lampard">
+      <div class="legend-text">
+        <h2>Frank Lampard</h2>
+        <p>Frank Lampard, sadece bir Chelsea efsanesi değil, Premier Lig tarihinin en büyük orta saha oyuncularından biridir. 2001 yılında
+		West Ham'dan transfer olduktan sonra Stamford Bridge'de 13 yıl sürecek bir destan yazan Lampard, bir orta saha oyuncusu olmasına 
+		rağmen inanılmaz bir skor gücü sergileyerek 211 golle kulüp tarihinin tüm zamanlardaki en golcü ismi olmayı başarmıştır. Sahadaki
+		yüksek oyun zekası, kusursuz ceza sahası koşuları ve mesafe tanımayan şutlarıyla tanınan "Süper Frankie", Chelsea'nin kazandığı 3
+		Premier Lig, 4 FA Cup ve kulüp tarihinin dönüm noktası olan 2012 UEFA Şampiyonlar Ligi şampiyonluğunun baş mimarlarından biriydi.
+		Hem kaptanlığı hem de profesyonelliğiyle kulübün kimliğini belirleyen en temel taşlardan biri olan Lampard, taraftarlar için "Maviler
+		"in ruhunu temsil eden, yeri doldurulamaz bir figürdür..</p>
+      </div>
+    </div>
+
+    <div class="history-content">
+      <img src="https://img.chelseafc.com/image/upload/f_auto,w_1440,c_fill,dpr_2.0,q_90/mobile-app/John-Terry-686385252.jpg" class="legend-photo" alt="John Terry">
+      <div class="legend-text">
+        <h2>John Terry</h2>
+        <p>"John Terry, Chelsea altyapısından çıkıp dünyanın en iyi stoperlerinden biri haline gelen, kulübün "Captain, Leader, Legend"
+		(Kaptan, Lider, Efsane) unvanına sahip tek ismidir. Onu gerçek bir efsane yapan, kulübün kazandığı 5 Premier Lig, 5 FA Cup, 3 Lig
+		Kupası, 1 UEFA Avrupa Ligi ve kulüp tarihinin ilk Şampiyonlar Ligi kupasında kaptan olarak başrol oynamasıdır. Sahadaki fedakar
+		oyunu, savunmadaki kusursuz sezgileri ve kritik anlarda attığı gollerle Chelsea’nin kazandığı tüm büyük başarılarda savunmanın 
+		kalbi olmuştur. Toplamda 17 kupa kaldırarak Chelsea tarihinin en çok kupa kazanan kaptanı olması ve kulüp aidiyetini her şeyin 
+		önünde tutması, onu Stamford Bridge tarihinin en saygın figürü yapmaktadır...</p>
+      </div>
+    </div>
+
+    <div class="history-content">
+      <img src="https://i.guim.co.uk/img/static/sys-images/Football/Pix/pictures/2009/2/25/1235593652537/Didier-Drogba-celebrates--002.jpg?width=465&dpr=1&s=none&crop=none" class="legend-photo" alt="Didier Drogba">
+      <div class="legend-text">
+        <h2>Didier Drogba</h2>
+        <p>Didier Drogba, sadece bir forvet değil, Chelsea tarihinin en büyük "final oyuncusu" ve lideridir. Onu efsane yapan en büyük olay, 2012 Şampiyonlar Ligi finalinde Bayern Münih'e karşı son dakikada attığı beraberlik golü ve şampiyonluğu getiren son penaltıyı gole çevirmesidir. Maviler ile çıktığı 10 final maçında 9 gol atarak "Wembley'nin Kralı" lakabını alan Drogba; 4 Premier Lig, 4 FA Cup, 3 Lig Kupası ve 1 Şampiyonlar Ligi kupası kazanmıştır. Kritik anlarda sahneye çıkması, fiziksel gücüyle rakip savunmaları tek başına yıpratması ve kulübe kattığı kazanma karakteri sayesinde taraftarlar tarafından Stamford Bridge tarihinin gelmiş geçmiş en iyi forveti olarak kabul edilir.</p>
+      </div>
+    </div>
+
+    <div class="history-content">
+      <img src="https://e0.365dm.com/12/05/1600x900/Petr-Cech-Penalty-Chelsea-Champions-League-fi_2767959.jpg?20120520003800" class="legend-photo" alt="Petr Cech">
+      <div class="legend-text">
+        <h2>Petr Čech</h2>
+        <p>Petr Čech, Chelsea kalesini 11 yıl boyunca aşılmaz bir duvara dönüştüren, kulüp tarihinin ve Premier Lig’in gelmiş geçmiş en iyi 
+		kalecisidir. Onu efsane yapan en büyük başarısı, 2012 Şampiyonlar Ligi finalinde uzatmalarda bir penaltı kurtarıp, seri penaltılarda
+		da takımını ayakta tutarak kupayı Londra’ya getirmesidir. Chelsea formasıyla 4 Premier Lig, 4 FA Cup, 3 Lig Kupası, 1 
+		UEFA Şampiyonlar Ligi ve 1 UEFA Avrupa Ligi şampiyonluğu yaşayan Čech, Premier Lig tarihinde en çok "clean sheet" 
+		(gol yemeden maç bitirme) rekorunu hala elinde tutmaktadır. Yaşadığı ağır kafa sakatlığına rağmen kaskıyla sahalara dönüp en 
+		üst seviyede oynamaya devam etmesi, onun azminin ve kulübe olan bağlılığının en büyük kanıtıdır.</p>
+      </div>
+    </div>
+
+    <div class="history-content">
+      <img src="https://mn2s.com/wp-content/uploads/2019/09/Gianfranco-Zola-mn2s.png" class="legend-photo" alt="Gianfranco Zola">
+      <div class="legend-text">
+        <h2>Gianfranco Zola</h2>
+        <p>Gianfranco Zola, modern Chelsea'nin temellerinin atıldığı dönemin en büyük ilham kaynağı ve "Sihirbaz" lakabıyla anılan
+		efsanesidir. Onu unutulmaz kılan, sadece tekniği değil, kulübün Avrupa arenasında yeniden söz sahibi olmasını sağlayan liderliğidir.
+		Chelsea ile 2 FA Cup, 1 Lig Kupası, 1 UEFA Kupa Galipleri Kupası ve 1 UEFA Süper Kupa kazanan Zola, 1998'deki Kupa Galipleri Kupası
+		finalinde oyuna girdikten sadece saniyeler sonra attığı galibiyet golüyle kulüp tarihine altın harflerle kazınmıştır. 2003 yılında
+		taraftarlar tarafından "Chelsea Tarihinin En İyi Oyuncusu" seçilen İtalyan yıldız, estetik golleri, akıl dolu asistleri ve beyefendi 
+		kişiliğiyle Stamford Bridge'de futbolun bir sanat dalı olarak görülmesini sağlamıştır.</p>
+      </div>
+    </div>
+
+    <div class="history-content">
+      <img src="https://assets.goal.com/images/v3/bltba23a746789f89e1/4260ee982401c7c1b6739bb837f5207a29f9c06e.jpg?auto=webp&format=pjpg&width=3840&quality=60" class="legend-photo" alt="Eden Hazard">
+      <div class="legend-text">
+        <h2>Eden Hazard</h2>
+        <p>Eden Hazard, Chelsea’nin modern dönemindeki en büyük yeteneği ve taraftarların izlemekten en çok keyif aldığı gerçek bir 
+		"oyun kurucu sihirbaz"dır. Onu efsane yapan, topu ayağına her aldığında Stamford Bridge’i ayağa kaldıran durdurulamaz driplingleri 
+		ve tek başına maçın kaderini değiştirebilme yeteneğidir. Maviler ile geçirdiği 7 sezonda 2 Premier Lig, 2 UEFA Avrupa Ligi, 1 FA Cup 
+		ve 1 Lig Kupası şampiyonluğu yaşamıştır. Özellikle 2019 Avrupa Ligi finalinde attığı 2 gol ve yaptığı asistle kupayı getirmesi, onun 
+		kulübe en büyük vedası olmuştur. 110 gol ve 92 asistlik devasa katkısının yanı sıra, defalarca kez "Yılın Oyuncusu" seçilen Hazard,
+		Chelsea tarihinin teknik kapasitesi en yüksek ve en yaratıcı ismi olarak kabul edilir.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div id="epic-moments" class="page-section">
+  <main>
+    <h2 style="text-align:center; font-size: 3rem; margin-bottom: 2rem;">Unutulmaz Epik Anlar</h2>
+
+    <div class="history-content" style="flex-direction: column; align-items: center; text-align: center;">
+      <img src="https://i.guim.co.uk/img/media/f7f20347d756ba78fe48d58d53eec5510b487676/0_0_3850_2508/master/3850.jpg?width=445&dpr=1&s=none&crop=none" 
+           style="width: 100%; max-width: 800px; border-radius: 20px; border: 3px solid #ffdd00; margin-bottom: 1.5rem;" alt="Drogba Munich">
+      <div class="legend-text">
+        <h2>Münih'te İmkansızın Başlangıcı</h2>
+        <p>2012 Şampiyonlar Ligi finali, dakika 88... Drogba'nın kafasıyla gelen o mucizevi beraberlik golü. Kulüp tarihinin akışını değiştiren o efsane an.</p>
+      </div>
+    </div>
+
+    <div class="history-content" style="flex-direction: column; align-items: center; text-align: center;">
+      <img src="https://media.gettyimages.com/id/525748708/photo/soccer-uefa-champions-league-semi-final-second-leg-fc-barcelona-v-chelsea.jpg?s=2048x2048&w=gi&k=20&c=sQFlMTQh_nB1FCh4IeaHBtxId977hrJwqBSEIrpnikk=" 
+           style="width: 100%; max-width: 800px; border-radius: 20px; border: 3px solid #ffdd00; margin-bottom: 1.5rem;" alt="Torres Barcelona">
+      <div class="legend-text">
+        <h2>"Gary Neville'ın Çığlığı"</h2>
+        <p>Nou Camp'ta 10 kişiyle savunma yaparken Torres'in orta sahada topu kapıp kaleciyi çalımlayarak attığı gol. Chelsea'yi finale uçuran an.</p>
+      </div>
+    </div>
+
+    <div class="history-content" style="flex-direction: column; align-items: center; text-align: center;">
+      <img src="https://image.hurimg.com/i/hurriyet/90/0x0/665c7b5e6d10ad1cc8e099fa.jpg" 
+           style="width: 100%; max-width: 800px; border-radius: 20px; border: 3px solid #ffdd00; margin-bottom: 1.5rem;" alt="Mourinho">
+      <div class="legend-text">
+        <h2>Special One Sahneye Çıkıyor</h2>
+        <p>Jose Mourinho'nun Stamford Bridge'de Barcelona zaferi sonrası yaptığı o ikonik sevinç gösterisi. Chelsea'nin yeni bir dev olduğunu dünyaya ilan ettiği an.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+
+<footer>
+  <p>© 2026 Chelsea FC Fan Project • Design by Yağız</p>
+</footer>
+
+<script>
+  function showPage(pageId) {
+
+    const pages = document.querySelectorAll('.page-section');
+    pages.forEach(page => {
+      page.classList.remove('active-section');
+    });
+
+   
+    const selectedPage = document.getElementById(pageId);
+    selectedPage.classList.add('active-section');
+
+   
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
